@@ -3,6 +3,7 @@ import java.util.HashSet;
 public class Cadenas {
 	public static void main(String[] args) {
 		HashSet<HashSet<Pair>> s=cadena(3);
+		System.out.println("Total: "+s.size()+" funciones.");
 		for(HashSet<Pair> h : s) {
 			System.out.println(h);
 		}
