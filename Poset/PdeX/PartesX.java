@@ -10,15 +10,28 @@ public class PartesX {
 	public static void main(String[] args) {
 		Hasse uno= initH();
 		initR(uno);
-		HashSet<HashSet<Pair>> res = obt(uno);
+		HashSet<HashSet<Pair>> res = new HashSet<HashSet<Pair>>();
+		
+		HashSet<Pair> base = new HashSet<Pair>();
+		Stack<Hasse> s =new Stack<Hasse>();
+		s.addAll(uno.sucesores);
+		Hasse p = uno;
+		while(!s.isEmpty()) {
+			base.add(new Pair(p.nombre, uno.nombre));
+			p = s.pop();
+			s.addAll(p.sucesores);
+		}		
+		res.add(base);
+		res.addAll(obt(base, uno));
 		for(HashSet<Pair> g : res) {
 			System.out.println(g);
 		}
 		System.out.println("Total: "+res.size());
 	}
 	
-	public static HashSet<HashSet<Pair>> obt(Hasse o){
+	public static HashSet<HashSet<Pair>> obt(HashSet<Pair>f, Hasse o){
 		HashSet<HashSet<Pair>> res = new HashSet<HashSet<Pair>>();
+		
 		return res;
 	}
 	
