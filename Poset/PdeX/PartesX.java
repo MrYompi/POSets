@@ -4,20 +4,42 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Stack;
 
-import Cadenas.Pair;
 public class PartesX {
 	public static HashSet <Pair> r = new HashSet<Pair>();
 	
 	public static void main(String[] args) {
 		Hasse uno= initH();
 		initR(uno);
-		System.out.println(r);
+		HashSet<HashSet<Pair>> res = obt(uno);
+		for(HashSet<Pair> g : res) {
+			System.out.println(g);
+		}
+		System.out.println("Total: "+res.size());
 	}
+	
+	public static HashSet<HashSet<Pair>> obt(Hasse o){
+		HashSet<HashSet<Pair>> res = new HashSet<HashSet<Pair>>();
+		return res;
+	}
+	
+	public static boolean monotona(HashSet<Pair> f) {
+		boolean m=true;
+		for(Pair p : f) {
+			for(Pair q : f) {
+				if(r.contains(new Pair(p.x(), q.x()))&&
+						!r.contains(new Pair(p.y(), q.y()))){
+					m=false;
+				}
+			}			
+		}
+		return m;
+	}
+	
 	public static Hasse initH() {
-		Hasse dos = new Hasse("dos", null);
+		Hasse dos = new Hasse("2", new ArrayList<Hasse>());
 		Hasse a = new Hasse("a", new ArrayList<Hasse>());
 		Hasse b = new Hasse("b", new ArrayList<Hasse>());
-		Hasse uno = new Hasse("uno", new ArrayList<Hasse>());
+		Hasse uno = new Hasse("1", new ArrayList<Hasse>());
 		a.sucesores.add(dos);
 		b.sucesores.add(dos);
 		uno.sucesores.add(a);
@@ -28,9 +50,11 @@ public class PartesX {
 		Hasse p=o;
 		Stack<Hasse> s = new Stack<Hasse>();
 		s.addAll(p.sucesores);
+		r.add(new Pair(o.nombre, p.nombre));
 		while(!s.isEmpty()) {
-			r.add(new Pair(o.nombre, p.nombre));
 			p=s.pop();
+			r.add(new Pair(o.nombre, p.nombre));
+			initR(p);
 			s.addAll(p.sucesores);
 		}
 	}
