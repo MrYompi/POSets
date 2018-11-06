@@ -2,29 +2,28 @@ package PdeX;
 
 import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.Stack;
+import java.util.LinkedList;
 
 public class PartesX {
 	public static HashSet<Pair<Hasse>> r = new HashSet<Pair<Hasse>>();
 	public static HashSet<HashSet<Pair<Hasse>>> visited = new HashSet<>();
-	public static Hasse origen;
+	public static ArrayList<Hasse> hs = new ArrayList<>();
+
 	public static void main(String[] args) {
 		Hasse uno = initH();
 		initR(uno);
-		origen=uno;
-		HashSet<HashSet<Pair<Hasse>>> res = new HashSet<HashSet<Pair<Hasse>>>();
-
+		
 		HashSet<Pair<Hasse>> base = new HashSet<Pair<Hasse>>();
-		Stack<Hasse> s = new Stack<Hasse>();
-		s.addAll(uno.sucesores);
-		Hasse p = uno;
-		while (!s.isEmpty()) {
-			base.add(new Pair<Hasse>(p, uno));
-			p = s.pop();
-			s.addAll(p.sucesores);
+		for (Hasse h : hs) {
+			base.add(new Pair<Hasse>(h, uno));
+		}
+
+		HashSet<HashSet<Pair<Hasse>>> res = new HashSet<>();
+		for (int i = hs.size() - 1; i >= 0; i--) {
+			res.addAll(obt(base, hs.get(i)));
 		}
 		res.add(base);
-		res.addAll(obt(base, uno));
+
 		for (HashSet<Pair<Hasse>> g : res) {
 			System.out.println(g);
 		}
@@ -33,44 +32,31 @@ public class PartesX {
 
 	public static HashSet<HashSet<Pair<Hasse>>> obt(HashSet<Pair<Hasse>> f, Hasse o) {
 		HashSet<HashSet<Pair<Hasse>>> res = new HashSet<HashSet<Pair<Hasse>>>();
-		boolean found = false;
-		if (monotona(f)&&!visited.contains(f)) {
-			visited.add(f);
-			res.add(f);
-			for (Pair<Hasse> p : f) {
-				if (p.x().equals(o)) {
-					found = true;
-				}
-				if (found) {
-					for (Hasse q : p.y().sucesores) {
-						HashSet<Pair<Hasse>> f2 = new HashSet<Pair<Hasse>>(f);
-						f2.remove(p);
-						f2.add(new Pair<Hasse>(o, q));
-						res.addAll(obt(f2, o));
-					}
-					HashSet<Pair<Hasse>> base = new HashSet<Pair<Hasse>>();
+		for (Pair<Hasse> p : f) {
+			if (p.x().equals(o)) {
+				for (Hasse q : p.y().sucesores) {
+					HashSet<Pair<Hasse>> f2 = new HashSet<>(f);
+					f2.remove(p);
+					f2.add(new Pair<Hasse>(p.x(), q));
+					if (monotona(f2) && !visited.contains(f2)) {
+						visited.add(f2);
+						res.add(f2);
 
-					Hasse q = origen;
-					Stack<Hasse> s = new Stack<Hasse>();
-					s.addAll(origen.sucesores);
-					while (!s.isEmpty()) {
-						res.addAll(obt(f, q));
-						q = s.pop();
-						s.addAll(q.sucesores);
+						for (int i = hs.size() - 1; i >= 0; i--) {
+							res.addAll(obt(f2, hs.get(i)));
+						}
 					}
 				}
 			}
 		}
 		return res;
-
 	}
 
 	public static boolean monotona(HashSet<Pair<Hasse>> f) {
 		boolean m = true;
 		for (Pair<Hasse> p : f) {
 			for (Pair<Hasse> q : f) {
-				if (r.contains(new Pair<Hasse>(p.x(), q.x())) && 
-						!r.contains(new Pair<Hasse>(p.y(), q.y()))) {
+				if (r.contains(new Pair<Hasse>(p.x(), q.x())) && !r.contains(new Pair<Hasse>(p.y(), q.y()))) {
 					m = false;
 				}
 			}
@@ -92,10 +78,12 @@ public class PartesX {
 
 	public static void initR(Hasse o) {
 		Hasse p = o;
-		Stack<Hasse> s = new Stack<Hasse>();
+		LinkedList<Hasse> s = new LinkedList<>();
 		s.addAll(p.sucesores);
 		r.add(new Pair<Hasse>(o, p));
 		while (!s.isEmpty()) {
+			hs.remove(p);
+			hs.add(p);
 			p = s.pop();
 			r.add(new Pair<Hasse>(o, p));
 			initR(p);
