@@ -1,26 +1,26 @@
 package PdeX;
 
-public class Pair {
-	private String x, y;
+public class Pair<E> {
+	private E x, y;
 
-	public Pair(String a, String b) {
+	public Pair(E a, E b) {
 		x = a;
 		y = b;
 	}
 
-	public String x() {
+	public E x() {
 		return x;
 	}
 
-	public String y() {
+	public E y() {
 		return y;
 	}
 
-	public void setX(String a) {
+	public void setX(E a) {
 		x = a;
 	}
 
-	public void setY(String a) {
+	public void setY(E a) {
 		y = a;
 	}
 
@@ -30,7 +30,7 @@ public class Pair {
 	
 	public boolean equals(Object o) {
 		if (o instanceof Pair) {
-			Pair q=(Pair) o;
+			Pair<E> q=(Pair<E>) o;
 			return this.x.equals(q.x()) && this.y.equals(q.y());
 		} else {
 			return false;
