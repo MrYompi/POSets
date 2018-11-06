@@ -19,10 +19,10 @@ public class PartesX {
 		}
 
 		HashSet<HashSet<Pair<Hasse>>> res = new HashSet<>();
+		res.add(base);
 		for (int i = hs.size() - 1; i >= 0; i--) {
 			res.addAll(obt(base, hs.get(i)));
 		}
-		res.add(base);
 
 		for (HashSet<Pair<Hasse>> g : res) {
 			System.out.println(g);
