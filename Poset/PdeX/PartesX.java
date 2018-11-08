@@ -12,7 +12,6 @@ public class PartesX {
 	public static void main(String[] args) {
 		Hasse uno = initH();
 		initR(uno);
-		
 		HashSet<Pair<Hasse>> base = new HashSet<Pair<Hasse>>();
 		for (Hasse h : hs) {
 			base.add(new Pair<Hasse>(h, uno));
@@ -41,7 +40,7 @@ public class PartesX {
 					if (monotona(f2) && !visited.contains(f2)) {
 						visited.add(f2);
 						res.add(f2);
-
+						
 						for (int i = hs.size() - 1; i >= 0; i--) {
 							res.addAll(obt(f2, hs.get(i)));
 						}
@@ -56,7 +55,8 @@ public class PartesX {
 		boolean m = true;
 		for (Pair<Hasse> p : f) {
 			for (Pair<Hasse> q : f) {
-				if (r.contains(new Pair<Hasse>(p.x(), q.x())) && !r.contains(new Pair<Hasse>(p.y(), q.y()))) {
+				if (r.contains(new Pair<Hasse>(p.x(), q.x())) && 
+						!r.contains(new Pair<Hasse>(p.y(), q.y()))) {
 					m = false;
 				}
 			}
@@ -65,12 +65,12 @@ public class PartesX {
 	}
 
 	public static Hasse initH() {
-		Hasse dos = new Hasse("2", new ArrayList<Hasse>());
+		//Hasse dos = new Hasse("2", new ArrayList<Hasse>());
 		Hasse a = new Hasse("a", new ArrayList<Hasse>());
 		Hasse b = new Hasse("b", new ArrayList<Hasse>());
 		Hasse uno = new Hasse("1", new ArrayList<Hasse>());
-		a.sucesores.add(dos);
-		b.sucesores.add(dos);
+		//a.sucesores.add(dos);
+		//b.sucesores.add(dos);
 		uno.sucesores.add(a);
 		uno.sucesores.add(b);
 		return uno;
@@ -81,13 +81,14 @@ public class PartesX {
 		LinkedList<Hasse> s = new LinkedList<>();
 		s.addAll(p.sucesores);
 		r.add(new Pair<Hasse>(o, p));
+		hs.add(p);
 		while (!s.isEmpty()) {
-			hs.remove(p);
-			hs.add(p);
 			p = s.pop();
 			r.add(new Pair<Hasse>(o, p));
 			initR(p);
 			s.addAll(p.sucesores);
+			hs.remove(p);
+			hs.add(p);
 		}
 	}
 }
