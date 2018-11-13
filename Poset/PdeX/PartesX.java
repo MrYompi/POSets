@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.HashSet;
 
 public class PartesX {
-	public static void main(String[] args) {
-		ArrayList<String> x = new ArrayList<>();
+	public static void partes(HashSet<String> entrada) {
+		ArrayList<String> x = new ArrayList<>(entrada);
 		HashSet<HashSet<String>> PdeX = new HashSet<>();
 		for(int i=1;i<=3;i++) {
 			x.add(new Integer(i).toString());
