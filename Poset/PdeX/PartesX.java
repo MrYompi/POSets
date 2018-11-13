@@ -66,14 +66,14 @@ public class PartesX {
 
 	public static Hasse initH() {
 		
-		Hasse dos = new Hasse("2", new ArrayList<Hasse>());
+		//Hasse dos = new Hasse("2", new ArrayList<Hasse>());
 		/*Hasse d = new Hasse("d", new ArrayList<Hasse>());
 		Hasse e = new Hasse("e", new ArrayList<Hasse>());
 		Hasse f = new Hasse("f", new ArrayList<Hasse>());*/	
-		Hasse a = new Hasse("a", new ArrayList<Hasse>());
-		Hasse b = new Hasse("b", new ArrayList<Hasse>());
-		Hasse c = new Hasse("c", new ArrayList<Hasse>());		
-		Hasse uno = new Hasse("1", new ArrayList<Hasse>());
+		Hasse a = new Hasse("1", new ArrayList<Hasse>());
+		Hasse b = new Hasse("2", new ArrayList<Hasse>());
+		Hasse c = new Hasse("3", new ArrayList<Hasse>());		
+		Hasse uno = new Hasse("b", new ArrayList<Hasse>());
 		uno.sucesores.add(a);
 		uno.sucesores.add(b);
 		uno.sucesores.add(c);
@@ -85,10 +85,10 @@ public class PartesX {
 		c.sucesores.add(f);				
 		d.sucesores.add(dos);		
 		e.sucesores.add(dos);		
-		f.sucesores.add(dos);*/
+		f.sucesores.add(dos);
 		a.sucesores.add(dos);		
 		b.sucesores.add(dos);		
-		c.sucesores.add(dos);
+		c.sucesores.add(dos);*/
 		return uno;
 	}
 
