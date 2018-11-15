@@ -9,7 +9,6 @@ public class PartesX {
 		ArrayList x = new ArrayList(entrada);
 		HashSet<HashSet> PdeX = new HashSet<>();	
 		Binario bin = new Binario(x.size());
-		int count=0;
 		for(int i=0;i<Math.pow(2, x.size());i++) {
 			HashSet aux = new HashSet<>();
 			for(int j=0; j<bin.num.length;j++) {
@@ -19,8 +18,6 @@ public class PartesX {
 			}
 			bin.add();
 			PdeX.add(aux);
-			count++;
-			System.out.println(count);
 		}
 		return PdeX;
 	}
