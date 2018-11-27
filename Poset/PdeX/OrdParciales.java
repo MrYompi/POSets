@@ -5,7 +5,7 @@ import java.util.HashSet;
 public class OrdParciales {
 	public static void main(String[] args) {
 		HashSet<Integer> p = new HashSet<>();
-		for(int i = 1; i<=3; i++) {
+		for(int i = 1; i<=4; i++) {
 			p.add(i);
 		}
 		HashSet<Pair<Integer>> PxP = new HashSet<>();
